@@ -1,7 +1,7 @@
 import React from "react";
 import {Tilt} from "react-tilt";
 import { motion } from "framer-motion";
-
+import { FaTwitter, FaLinkedin } from 'react-icons/fa';
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
@@ -16,6 +16,23 @@ const ProjectCard = ({
   image,
   source_code_link,
 }) => {
+   
+  const projectUrl = window.location.href;  // current project URL
+
+  const shareOnX = () => {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      `${name}: ${projectUrl}`
+    )}`;
+    window.open(twitterUrl, "_blank");
+  };
+
+  const shareOnLinkedin = () => {
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      projectUrl
+    )}`;
+    window.open(linkedinUrl, "_blank");
+  };
+
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
@@ -61,6 +78,24 @@ const ProjectCard = ({
               #{tag.name}
             </p>
           ))}
+        </div>
+
+          {/* Social Media Sharing Buttons */}
+        <div className='mt-4 flex flex-col gap-2'>
+          <button
+            onClick={shareOnX}
+            className='bg-primary hover:bg-black text-white py-2 px-4 rounded transition duration-300 ease-in-out flex items-center justify-center cursor-pointer'
+          >
+            <FaTwitter className='mr-2' />
+            Share on X
+          </button>
+          <button
+            onClick={shareOnLinkedin}
+            className='bg-primary hover:bg-black text-white py-2 px-4 rounded transition duration-300 ease-in-out flex items-center justify-center cursor-pointer'
+          >
+            <FaLinkedin className='mr-2' />
+            Share on LinkedIn
+          </button>
         </div>
       </Tilt>
     </motion.div>
